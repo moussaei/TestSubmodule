@@ -1,0 +1,32 @@
+version: '3'
+services:
+    spip:
+        image: ipeos/spip
+        ports:
+            - "8080:80"
+        restart: always
+        environment:
+            - COLUMNS=236
+            - LINES=66
+            - SPIP_DB_LOGIN=root
+            - SPIP_DB_PASS=spip
+            - SPIP_DB_NAME=spip
+            - SPIP_DB_HOST=mysql
+        depends_on:
+            - mysql
+        volumes:
+            - "./spip/data:/var/www/html/squelettes"
+            - "./spip/backup:/backup"
+    mysql:
+        image: mysql:5.6
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: spip
+            MYSQL_DATABASE: spip
+            MYSQL_USER: spip
+        volumes:
+            - "./mysql/data:/var/lib/mysql"
+            - "./mysql/backup:/backup"
+
+        ports:
+            - "3306:3306"

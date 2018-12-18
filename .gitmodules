@@ -1,0 +1,4 @@
+[submodule "application"]
+	path = application
+	url = git@github.com:moussaei/htmlSubModule.git
+        branch = master
